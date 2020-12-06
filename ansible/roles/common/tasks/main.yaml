@@ -17,3 +17,9 @@
     - python3-pip
     state: latest
     update_cache: true
+
+- name: Install aws cli
+  become: yes
+  pip:
+    name: awscli
+    state: latest 

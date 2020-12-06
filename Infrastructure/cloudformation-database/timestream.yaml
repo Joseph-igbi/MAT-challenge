@@ -1,16 +1,18 @@
+AWSTemplateFormatVersion: 2010-09-09
 
 
-Type: AWS::Timestream::Database
-Properties: 
-  DatabaseName: "mclarenDB" 
-  Tags: 
-    - Tag
-
-Type: AWS::Timestream::Table
-DependsOn: mclarenDB
-Properties:
-    TableName: "mclarentable"
-    DatabaseName: "mclarenDB"
-    RetentionProperties:
+Resources:
+  TimestreamDatabase:
+    Type: AWS::Timestream::Database
+    Properties: 
+      DatabaseName: "mclarenDB" 
+  
+  TimestreamTable:
+    Type: AWS::Timestream::Table
+    DependsOn: mclarenDB
+    Properties:
+      TableName: "mclarentable"
+      DatabaseName: "mclarenDB"
+      RetentionProperties:
         MemoryStoreRetentionPeriodInHours: "24"
         MagneticStoreRetentionPeriodInDays: "7"
