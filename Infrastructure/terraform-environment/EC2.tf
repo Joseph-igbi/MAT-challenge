@@ -26,6 +26,8 @@ resource "aws_instance" "private_host" {
                            git clone https://github.com/Joseph-igbi/MAT-challenge.git
                            cd ~/MAT-challenge/ansible && ansible-playbook playbook.yaml
                            sudo systemctl restart docker
+                           
+                           EOF
   tags = {
     Name = "private_host"
   }
