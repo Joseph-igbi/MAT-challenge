@@ -18,16 +18,7 @@ resource "aws_instance" "private_host" {
   key_name               = var.key_name
   subnet_id              = aws_subnet.private_subnet.id
   vpc_security_group_ids = [aws_security_group.sgph.id]
-  user_data              = << EOF 
-                           #!/bin/bash
-                           sudo apt update
-                           sudo apt install git
-                           sudo apt install ansible
-                           git clone https://github.com/Joseph-igbi/MAT-challenge.git
-                           cd ~/MAT-challenge/ansible && ansible-playbook playbook.yaml
-                           sudo systemctl restart docker
-                           
-                           EOF
+  user_data              = "$(file('user_data.sh')"
   tags = {
     Name = "private_host"
   }
