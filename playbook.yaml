@@ -1,0 +1,13 @@
+- hosts: localhost
+  become: yes
+  roles:
+  - role: common
+
+  - role: grafana_install
+    vars:
+      shell: curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+      repo: deb https://packages.grafana.com/oss/deb stable main 
+
+  - role: grafana_plugins
+  
+      
