@@ -1,0 +1,4 @@
+---
+
+- name: Create timestream datasource
+  community.grafana.grafana_datasource`

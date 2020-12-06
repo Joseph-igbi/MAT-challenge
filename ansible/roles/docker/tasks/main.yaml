@@ -1,0 +1,54 @@
+---
+
+- name: prerequisites
+  apt:
+    pkg:
+    - apt-transport-https
+    - ca-certificates
+    - curl
+    - gnupg2
+    - software-properties-common
+    state: latest
+    update_cache: true
+
+- name: docker gpg key
+  apt_key:
+    url: "{{ url }}"
+    state: present
+
+- name: docker apt repo
+  apt_repository:
+    repo: "{{ repo }}"
+    state: present
+
+- name: docker install
+  apt:
+    pkg:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    state: latest
+    update_cache: true
+
+- name: docker service
+  service:
+    name: docker
+    state: started
+
+- name: "docker sdk"
+  pip:
+    name: docker
+
+- name: Add remote "ubuntu" user to "docker" group
+  user:
+    name: "ubuntu"
+    group: "docker"
+    append: yes
+  tags:
+    - docker
+
+- name: Install docker-compose
+  get_url: 
+    url : "{{ compose_url }} "
+    dest: /usr/local/bin/docker-compose
+    mode: 'u+x,g+x'

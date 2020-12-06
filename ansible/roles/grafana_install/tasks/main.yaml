@@ -1,0 +1,41 @@
+---
+# tasks file for deploy grafana
+
+
+- name: nessesary package
+  apt: 
+    name: apt-transport-https
+    state: present
+    update_cache: yes
+
+- name: necessary packages
+  apt:
+    name: software-properties-common
+    state: present
+    update_cache: yes
+
+- name: add grafana gpg key
+  shell: "{{ shell }}"
+
+- name: add grafana repo 
+  apt_repository:
+    repo: "{{ repo }}"
+    state: present
+    update_cache: true
+  register: _update_apt_cache
+  until: _update_apt_cache is succeeded
+  retries: 5
+  delay: 2
+
+- name: Install grafana
+  apt: 
+    name: grafana
+    state: present
+    update_cache: yes
+
+- name: Enable and start grafana service
+  service:
+    name: grafana-server
+    enabled: yes
+    state: started
+

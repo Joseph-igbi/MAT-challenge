@@ -1,0 +1,24 @@
+- hosts: localhost
+  become: yes
+  roles:
+  - role: common
+  - role: docker
+    vars:
+      url: https://download.docker.com/linux/debian/gpg
+      repo: deb [arch=amd64] https://download.docker.com/linux/debian stretch stable
+      compose_url: https://github.com/docker/compose/releases/download/1.25.1-rc1/docker-compose-Linux-x86_64
+
+  - role: grafana_install
+    vars:
+      shell: curl https://packages.grafana.com/gpg.key | sudo apt-key add -
+      repo: deb https://packages.grafana.com/oss/deb stable main 
+
+  - role: grafana_plugins
+    vars:
+      databaseUri: arn:aws:timestream:eu-west-1:442359265617:database/mclarenDB 
+  
+  - role: terraform
+    vars:
+      terraform_version: 0.14.0
+      terraform_dir: /usr/local/bin
+      

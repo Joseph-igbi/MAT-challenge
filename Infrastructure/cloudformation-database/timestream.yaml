@@ -1,0 +1,16 @@
+
+
+Type: AWS::Timestream::Database
+Properties: 
+  DatabaseName: "mclarenDB" 
+  Tags: 
+    - Tag
+
+Type: AWS::Timestream::Table
+DependsOn: mclarenDB
+Properties:
+    TableName: "mclarentable"
+    DatabaseName: "mclarenDB"
+    RetentionProperties:
+        MemoryStoreRetentionPeriodInHours: "24"
+        MagneticStoreRetentionPeriodInDays: "7"

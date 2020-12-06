@@ -1,0 +1,19 @@
+---
+
+- name: docker group
+  group:
+    name: docker
+- name: jenkins user
+  user:
+    name: jenkins
+    groups: docker
+    append: yes
+    state: present
+    shell: /bin/bash
+- name: latest python and pip
+  apt:
+    pkg:
+    - python3
+    - python3-pip
+    state: latest
+    update_cache: true

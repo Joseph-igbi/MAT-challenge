@@ -1,0 +1,11 @@
+
+---
+
+- name: Install grafana timestream plugin
+  become: true
+  command: sudo grafana-cli plugins install grafana-timestream-datasource
+  ignore_errors: yes
+  register: _plugin_install
+  until: _plugin_install is succeeded
+  retries: 5
+  delay: 2
