@@ -6,7 +6,7 @@ services:
                 container_name: broker
                 image: toke/mosquitto
                 ports:
-                        - "127.0.0.1:1883:1883/tcp"
+                        - "1883:1883"
 
         # GPS coords source
         source_gps:
@@ -19,7 +19,7 @@ services:
                         - ./mqtt.env
                         - ./cars.env
                 ports:
-                        - "127.0.0.1:8081:8080/tcp"
+                        - "8081:8080"
 
         # Write to websocket
         mqtt_to_websocket:
@@ -30,7 +30,7 @@ services:
                 env_file:
                         - ./mqtt.env
                 ports:
-                        - "127.0.0.1:8080:8080/tcp"
+                        - "8080:8080"
 
 
         # Webapp
@@ -40,7 +40,7 @@ services:
                 links:
                         - mqtt_to_websocket
                 ports:
-                        - "127.0.0.1:8084:8084/tcp"
+                        - "8084:8084"
 
         processapp:
 
@@ -48,13 +48,13 @@ services:
                 image: processapp
                 build: ./processapp
                 ports:
-                        - "127.0.0.1:5000:5000/tcp"
+                        - "5000:5000"
 
         influxdb:
                 image: influxdb:latest
                 container_name: influxdb
                 ports:
-                        - "127.0.0.1:8086:8086/tcp"
+                        - "8086:8086"
                 volumes: 
                         - /home/${USER}/influxdb-storage:/var/lib/influxdb
 

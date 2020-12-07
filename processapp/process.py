@@ -4,19 +4,12 @@ import boto3
 import datetime
 from influxdb import InfluxDBClient
 
-timestream = boto3.client('timestream-write', region_name='eu-west-1')
-database_name='mclarenDB'
-table_name='mclarentable'
 
-
-
-
-# The callback for when the client receives a CONNACK response from the server.
+# The callback for when the client receives a connection response from the server.
 def on_connect(client, userdata, flags, rc):
-    print("Connected with result code "+str(rc))
     client.subscribe("carCoordinates")
 
-# The callback for when a PUBLISH message is received from the server.
+# the callback for when the client receives a message response
 def on_message(client, userdata, msg):
 
     json_dict=json.loads(msg.payload)
