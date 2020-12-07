@@ -27,17 +27,17 @@ resource "aws_instance" "private_host" {
 }
 
 resource "aws_ebs_volume" "ebs_volume" {
-  availability_zone = aws_instance.private_host.availaility_zone
-  size = 1
+  availability_zone = aws_instance.private_host.availability_zone
+  size              = 1
   tags = {
     Name = "myebs1"
   }
 }
 
 resource "aws_volume_attachment" "ebs_att" {
-  device_name = "/dev/sdd"
-  volume_id = aws_ebs_volume.ebs_volume.id
-  instance_id = aws_instance.private_host.id
+  device_name  = "/dev/sdd"
+  volume_id    = aws_ebs_volume.ebs_volume.id
+  instance_id  = aws_instance.private_host.id
   force_detach = true
 }
 
