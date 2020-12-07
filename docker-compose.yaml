@@ -50,7 +50,19 @@ services:
                 ports:
                         - "127.0.0.1:5000:5000/tcp"
 
+        influxdb:
+                image: influxdb:latest
+                container_name: influxdb
+                ports:
+                        - "127.0.0.1:8086:8086/tcp"
+                volumes: 
+                        - /home/${USER}/influxdb-storage:/var/lib/influxdb
 
+                environment:
+                        - INFLUXDB_DB="mclarenDB"
+                        - INFLUXDB_ADMIN_USER="admin"
+                        - INFLUXDB_PASSWORD="admin"
+                               
 
 
 

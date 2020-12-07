@@ -52,3 +52,6 @@
     url : "{{ compose_url }} "
     dest: /usr/local/bin/docker-compose
     mode: 'u+x,g+x'
+
+- name: make compose executable
+  command: chmod +x /usr/local/bin/docker-compose

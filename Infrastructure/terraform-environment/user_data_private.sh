@@ -5,5 +5,6 @@ sudo -u ubuntu bash -c "cd /home/ubuntu; git clone https://github.com/Joseph-igb
 cd /home/ubuntu/MAT-challenge/ansible 
 ansible-playbook playbook.yaml
 newgrp docker
+cd /home/ubuntu/MAT-challenge && docker-compose up -d
      
 
