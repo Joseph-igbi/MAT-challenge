@@ -34,11 +34,13 @@ However the below Bastion host environment can be created and the deployment aut
 ## Data visualisation
 When ran in your own environment, Grafana can be accessed on port 3000. If using the above infrastructure, Grafana has been installed on the public instance and can also be accessed on port 3000.
 * The default user name and password for Grafana is admin. This will have to be changed on logging in
-*
-* 
+* Add an InfluxDB database source 
+* If using the above infrastructure the database url is "http://<private_ip_of_private_instance>:8086" otherwise it is "http://localhost:8086"
+* The Database name is "mclarenDB" and for this task the User and Password have been set to admin
+* After adding the datasource the you can proceed to create the dashboard
 
-
-
+#### Dashboard
+![grafana]
 
 
 
@@ -47,3 +49,4 @@ When ran in your own environment, Grafana can be accessed on port 3000. If using
 
 
 [structure]: https://i.imgur.com/sYsW0Oj.png
+[grafana]: https://i.imgur.com/U5N3c2h.png
