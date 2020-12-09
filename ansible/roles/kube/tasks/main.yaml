@@ -1,0 +1,48 @@
+
+---
+- name: version
+  command: eksctl version
+  register: eksctl_installed_version
+  changed_when: false
+  failed_when: false
+
+- block:
+    - name: download
+      get_url:
+        url: "{{ eksctl_url }}"
+        dest: /tmp
+
+    - name: unarchive
+      unarchive:
+        src: /tmp/eksctl_Linux_amd64.tar.gz
+        dest: /usr/local/bin/
+        remote_src: true
+        owner: root
+        group: root
+        mode: '0755'
+      become: true
+  when: >
+    eksctl_installed_version.stdout is not defined
+    or eksctl_version not in eksctl_installed_version.stdout
+
+
+- name: version
+  command: kubectl version
+  register: kubectl_installed_version
+  changed_when: false
+  failed_when: false
+
+- block:
+    - name: download
+      get_url:
+        url: "{{ kubectl_url }}"
+        dest: /tmp/kubectl
+    - name: change permision
+      command: chmod +x /tmp/kubectl
+
+    - name: unarchive
+      command: sudo mv /tmp/kubectl /usr/local/bin/
+  when: >
+    kubectl_installed_version.stdout is not defined
+    or kubectl_version not in kubectl_installed_version.stdout
+

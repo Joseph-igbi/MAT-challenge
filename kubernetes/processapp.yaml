@@ -1,0 +1,48 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: processapp
+spec:
+  selector:
+    app: processapp
+  ports: 
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: processapp
+  labels: 
+    app: processapp
+spec:
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: processapp
+  template:
+    metadata:
+      labels:
+        app: processapp
+    spec:
+      containers:
+      - name: processapp 
+        image: josephigbi/processapp 
+        ports:
+        - containerPort: 5000
+'''
+        volumeMounts:
+        - name: influxdb-persistent-storage
+          mountPath: /var/www/html
+    volumes:
+     - name: influxdb-persistent-storage
+       awsElasticBlockStore:
+         volumeID: EBS_VOLUME_ID
+         fsType: ext4
+'''

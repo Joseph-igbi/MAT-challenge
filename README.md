@@ -18,6 +18,9 @@ The application can be deployed in your environment by:
   * *docker-compose*
   * *grafana*
   * *python3 and pip3*
+  * *eksctl*
+  * *kubectl*
+  * *aws cli*
 * After the configuration is complete, in MAT-challenge/ run "$ docker-compose up -d"
 * The app will be up and running and grafana which has been installed by Ansible can be viewed on localhost:3000
 
@@ -41,6 +44,14 @@ When run in your own environment, Grafana can be accessed on port 3000. If using
 
 #### Dashboard
 ![grafana]
+
+## Scaling
+To easily scale, the app will have to be deployed to kubernetes. The dependencies for this are included in the ansible configuration.
+
+* Firstly you'll have to authenticate with AWS using a user with eks permisions. Run "$ aws configure" and provide the user authentication details. 
+* Run "eksctl create cluster --name=<cluster_name> --ssh-public-key=<KEY_NAME> --node-type=<node_type>" and wait for the cluster to be created.
+* To deploy the app, in MAT-challenge/kubernetes run "$ kubectl apply -f .". Grafana can be viewed on port 3000
+* To autoscale with a max of 3 replicas run"$ kubectl autoscale deployment processapp --max 3 --min 1 --cpu-percent 75"
 
 
 

@@ -1,0 +1,43 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mqtt-to-websocket
+spec:
+  selector:
+    app: mqtt-to-websocket
+  ports: 
+  - protocol: TCP
+    port: 8080
+    targetPort: 8080
+  type: ClusterIP
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mqtt-to-websocket
+  labels: 
+    app: mqtt-to-websocket
+spec:
+  strategy: 
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: mqtt-to-websocket
+  template:
+    metadata:
+      labels:
+        app: mqtt-to-websocket
+    spec:
+      containers:
+      - name: mqtt-to-websocket 
+        image: mclarenappliedtechnologies/recruitment.fanengagement.forwarder
+        env:
+        - name: MQTT_URL
+          value: tcp://broker:1883
+        - name: MQTT_TOPIC
+          value: carCoordinates
+        ports:
+        - containerPort: 8080

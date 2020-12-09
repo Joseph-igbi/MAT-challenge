@@ -21,4 +21,9 @@
     vars:
       terraform_version: 0.14.0
       terraform_dir: /usr/local/bin
-      
+
+  - role: kube
+    vars:
+      eksctl_version: 0.20.0
+      eksctl_url: https://github.com/weaveworks/eksctl/releases/download/{{ eksctl_version }}/eksctl_Linux_amd64.tar.gz
+      kubectl_url: https://amazon-eks.s3.us-west-2.amazonaws.com/1.18.9/2020-11-02/bin/linux/amd64/kubectl 
