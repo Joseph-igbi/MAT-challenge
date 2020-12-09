@@ -14,8 +14,6 @@
       repo: deb https://packages.grafana.com/oss/deb stable main 
 
   - role: grafana_plugins
-    vars:
-      databaseUri: arn:aws:timestream:eu-west-1:442359265617:database/mclarenDB 
   
   - role: terraform
     vars:
