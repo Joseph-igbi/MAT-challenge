@@ -32,17 +32,9 @@ spec:
         app: processapp
     spec:
       containers:
-      - name: processapp 
-        image: josephigbi/processapp 
+      - name: processapp
+        image: josephigbi/processapp
         ports:
         - containerPort: 5000
-'''
-        volumeMounts:
-        - name: influxdb-persistent-storage
-          mountPath: /var/www/html
-    volumes:
-     - name: influxdb-persistent-storage
-       awsElasticBlockStore:
-         volumeID: EBS_VOLUME_ID
-         fsType: ext4
-'''
+
+
